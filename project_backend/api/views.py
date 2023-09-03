@@ -13,6 +13,17 @@ import requests
 class TextPrompt(BaseModel):
     prompt: str
 
+pre_prompt="Provide a summarized and detailed description of characters or events featured in african literature text in not more than 25 words. "
+def return_output(prompt_input):
+    output = replicate.run(
+        "replicate/llama-2-70b-chat:2796ee9483c3fd7aa2e171d38f4ca12251a30609463dcfd4cd76703f22e96cdf",
+         input={"prompt": f"{pre_prompt} {prompt_input} Assistant: ", # Prompts
+                "temperature":0.1, "top_p":0.9, "max_length":128, "repetition_penalty":1})  # Model parameters
+    full_response = ""
+    for item in output:
+        full_response += item
+    return full_response
+
 @api_view(["POST"])
 def generate(request):
     api_host = os.getenv('API_HOST', 'https://api.stability.ai')
@@ -20,7 +31,7 @@ def generate(request):
     engine_id = "stable-diffusion-xl-beta-v2-2-2"
 
     data = request.data
-    prompt = data['prompt']
+    prompt = return_output(data['prompt'])
     print(prompt)
     try:
         response = requests.post(
