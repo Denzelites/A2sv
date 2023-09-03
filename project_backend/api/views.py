@@ -31,7 +31,8 @@ def generate(request):
     engine_id = "stable-diffusion-xl-beta-v2-2-2"
 
     data = request.data
-    prompt = return_output(data['prompt'])
+    full_prompt = return_output(data['prompt'])
+    prompt=full_prompt.split(" ", 1)[1]
     print(prompt)
     try:
         response = requests.post(
