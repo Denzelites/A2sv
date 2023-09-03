@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework.parsers import JSONParser, MultiPartParser
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-
+import replicate
 from pydantic import BaseModel
 import os
 from . import config
@@ -13,6 +13,7 @@ import requests
 class TextPrompt(BaseModel):
     prompt: str
 
+os.environ['REPLICATE_API_TOKEN']=config.rp_api_key
 pre_prompt="Provide a summarized and detailed description of characters or events featured in african literature text in not more than 25 words. "
 def return_output(prompt_input):
     output = replicate.run(
@@ -51,7 +52,7 @@ def generate(request):
                 "cfg_scale": 7,
                 "height": 512,
                 "width": 512,
-                "samples": 1,
+                "samples": 4,
                 "steps": 30,
             },
         )
