@@ -4,10 +4,11 @@
     let prompt: string;
     let updating: boolean = false;
     let img: string = 'images.jpeg'
+    let backend_url: string = 'https://denzelites.pythonanywhere.com/generate-image'
     const handleSubmit = async ()=>{
         updating = true
         const res = await fetch(
-            'http://localhost:8000/generate-image', {
+            `${backend_url}`, {
                 'method':'POST',
                 'headers':{
                     'Content-Type':'application/json'
@@ -33,7 +34,7 @@ to-[#383030]">
         <div class="flex flex-row items-center justify-center"><h2>Bring your imagination to life</h2></div>
         <!---prompt-->
         <div class="flex flex-col items-center justify-start">
-            <input class='h-[30px] w-[100%] rounded-md p-[7px] text-black' bind:value={prompt}>
+            <input class='h-[30px] w-[100%] rounded-md p-[7px] text-[12px] text-black' bind:value={prompt}>
         </div>
         <!--buttons-->
         <div class="flex flex-col items-center justify-center">

@@ -3,6 +3,8 @@
     import '../layout/styles/app.css'
     import Navbar from './components/navbar.svelte';
     import Footer from './components/footer.svelte';
+
+    export const prerender = true;
 </script>
 
 <body id='top'>
